@@ -1,0 +1,1 @@
+const {delivery,reply}=require('./shared.cjs');exports.handler=async e=>{if(e.httpMethod!=='POST')return reply(405,{error:'Use POST.'});try{const data=JSON.parse(e.body||'{}');return reply(200,await delivery(data.postcode));}catch(err){return reply(err instanceof SyntaxError?400:err.status||503,{error:err.message||'Unable to check delivery.'});}};
